@@ -1,0 +1,2796 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API Classic Project",
+        "description": "API for communication with the Classic Project",
+        "version": "1.3.0"
+    },
+    "host": "http://student-dp8.intec.ugent.be/development/api",
+    "schemes": [
+        "http"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/course/{courseId}/lecture/{lectureId}/video": {
+            "get": {
+                "summary": "Retrieve all video's for this course",
+                "description": "This endpoint returns all the video's",
+                "tags": [
+                    "Video"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of video's",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of the video's",
+                            "items": {
+                                "$ref": "#/definitions/Video"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add a new video",
+                "description": "This endpoint allows a user to add a new video",
+                "parameters": [{
+                    "name": "video",
+                    "in": "body",
+                    "description": "video to add",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Video"
+                    }
+                }],
+                "tags": [
+                    "Video"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "the id of the created video",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/video/{videoId}": {
+            "get": {
+                "summary": "Retrieve video for given id",
+                "description": "This endpoint returns all the information for a video",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "Video"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A video",
+                        "schema": {
+                            "$ref": "#/definitions/Video"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update this video",
+                "description": "This endpoint patches some data for this video\n",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to patch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "video",
+                    "in": "body",
+                    "description": "video with applied changes",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Video"
+                    }
+                }],
+                "tags": [
+                    "Video"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove one video entirely",
+                "description": "This endpoint removes the video from the system\n",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to delete",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "Video"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/coursenotes": {
+            "get": {
+                "summary": "Retrieve all course notes for this course",
+                "description": "This endpoint returns all the course notes",
+                "tags": [
+                    "CourseNotes"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of course notes",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of the course notes",
+                            "items": {
+                                "$ref": "#/definitions/CourseNotes"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add new course notes",
+                "description": "This endpoint allows a user to add a new course notes",
+                "parameters": [{
+                    "name": "courseNotes",
+                    "in": "body",
+                    "description": "course notes to add",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/CourseNotes"
+                    }
+                }],
+                "tags": [
+                    "CourseNotes"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "the id of the created course notes",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/coursenotes/{courseNotesId}": {
+            "get": {
+                "summary": "Retrieve courseNotes for given id",
+                "description": "This endpoint returns all the information for course notes",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotes"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "course notes",
+                        "schema": {
+                            "$ref": "#/definitions/CourseNotes"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update these course notes",
+                "description": "This endpoint patches some data for these course notes\n",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes to patch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotes",
+                    "in": "body",
+                    "description": "course notes with applied changes",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/CourseNotes"
+                    }
+                }],
+                "tags": [
+                    "CourseNotes"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove course notes entirely",
+                "description": "This endpoint removes these course notes from the system\n",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes to delete",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotes"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/video/{videoId}/comment": {
+            "get": {
+                "summary": "Retrieve all the comments of the video with the given id",
+                "description": "This endpoint returns all the comment for a video",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "VideoComment"
+                ],
+                "responses": {
+                    "200": {
+
+                        "description": "a comment containing a self reference for the video with given videoId",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of comments",
+                            "items": {
+                                "$ref": "#/definitions/Comment"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add a new comment to a video",
+                "description": "This endpoint allows a user to add a comment to a video",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "comment",
+                    "in": "body",
+                    "description": "comment to add to the video",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }],
+                "tags": [
+                    "VideoComment"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "the id of the created comment",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/video/{videoId}/comment/{commentId}": {
+            "get": {
+                "summary": "Retrieve the comment corresponding to the given id",
+                "description": "This endpoint returns a specific comment",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                   "VideoComment"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "a comment containing a self reference for the video with given videoId",
+                        "schema": {
+                            "$ref": "#/definitions/Comment"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update this comment",
+                "description": "This endpoint patches some data for this comment\n",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "comment",
+                    "in": "body",
+                    "description": "updated comment to add to the video",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }],
+                "tags": [
+                    "VideoComment"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Comment successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this comment entirely",
+                "description": "This endpoint removes the comment from the system\n",
+                "parameters": [{
+                    "name": "videoId",
+                    "in": "path",
+                    "description": "Id of the video to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "VideoComment"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Comment successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/comment/{commentId}/videoref": {
+            "get": {
+                "summary": "Retrieve all the video references for the given commentId",
+                "description": "This endpoint returns all the video references for a comment",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "200": {
+
+                        "description": "A list of ",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of video references",
+                            "items": {
+                                "$ref": "#/definitions/VideoRef"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add videoreferences to a comment",
+                "description": "This endpoint allows a user to add videoreferences to a comment in a video",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videorefs",
+                    "in": "body",
+                    "description": "video references to add to the video",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "description": "list of video references",
+                        "items": {
+                            "$ref": "#/definitions/VideoRef"
+                        }
+                    }
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video references succesfully created"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/comment/{commentId}/videoref/{videoRefId}": {
+            "patch": {
+                "summary": "Update this video reference",
+                "description": "This endpoint patches some data for this comment\n",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videoRefId",
+                    "in": "path",
+                    "description": "Id of the video reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videoref",
+                    "in": "body",
+                    "description": "updated video reference",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/VideoRef"
+                    }
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video reference successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this video reference entirely",
+                "description": "This endpoint removes the video reference from the system\n",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videoRefId",
+                    "in": "path",
+                    "description": "Id of the video reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video reference successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/coursenotes/{courseNotesId}/comment": {
+            "get": {
+                "summary": "Retrieve all the comments of the course notes with the given id",
+                "description": "This endpoint returns all the comment for course notes",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesComment"
+                ],
+                "responses": {
+                    "200": {
+
+                        "description": "An comment containing a self reference for the course notes with given courseNotesId",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of comments",
+                            "items": {
+                                "$ref": "#/definitions/Comment"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add a new comment to course notes",
+                "description": "This endpoint allows a user to add a comment to course notes",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "comment",
+                    "in": "body",
+                    "description": "comment to add to the course notes",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }],
+                "tags": [
+                    "CourseNotesComment"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "the id of the created comment",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/coursenotes/{courseNotesId}/comment/{commentId}": {
+            "get": {
+                "summary": "Retrieve the comment corresponding to the given id",
+                "description": "This endpoint returns a specific comment",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesComment"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An comment containing a self reference for the course notes with given courseNotesId",
+                        "schema": {
+                            "$ref": "#/definitions/Comment"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update this comment",
+                "description": "This endpoint patches some data for this comment\n",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "comment",
+                    "in": "body",
+                    "description": "updated comment to add to the course notes",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }],
+                "tags": [
+                    "CourseNotesComment"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Comment successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this comment entirely",
+                "description": "This endpoint removes the comment from the system\n",
+                "parameters": [{
+                    "name": "courseNotesId",
+                    "in": "path",
+                    "description": "Id of the course notes",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesComment"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Comment successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/comment/{commentId}/coursenotesref": {
+            "get": {
+                "summary": "Retrieve all the course notes references for the given commentId",
+                "description": "This endpoint returns all the course notes references for a comment",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "200": {
+
+                        "description": "A list of course notes references",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of course notes references",
+                            "items": {
+                                "$ref": "#/definitions/CourseNotesRef"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add course notes references to a comment",
+                "description": "This endpoint allows a user to add course notes references to a comment in course notes",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesrefs",
+                    "in": "body",
+                    "description": "courseNotes references to add to the course notes",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "description": "list of course notes references",
+                        "items": {
+                            "$ref": "#/definitions/CourseNotesRef"
+                        }
+                    }
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes references succesfully created"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/comment/{commentId}/coursenotesref/{courseNotesRefId}": {
+            "patch": {
+                "summary": "Update this course notes reference",
+                "description": "This endpoint patches some data for this reference\n",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesRefId",
+                    "in": "path",
+                    "description": "Id of the course notes reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesref",
+                    "in": "body",
+                    "description": "updated course notes reference",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/CourseNotesRef"
+                    }
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes reference successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this course notes reference entirely",
+                "description": "This endpoint removes the course notes reference from the system\n",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesRefId",
+                    "in": "path",
+                    "description": "Id of the course notes reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes reference successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/coursenotesref": {
+            "get": {
+                "summary": "Retrieve all the course notes references for the given replyId",
+                "description": "This endpoint returns all the course notes references for a reply",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "200": {
+
+                        "description": "A list of course notes references",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of course notes references",
+                            "items": {
+                                "$ref": "#/definitions/CourseNotesRef"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add course notes references to a reply",
+                "description": "This endpoint allows a user to add course notes references to a reply in course notes",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesrefs",
+                    "in": "body",
+                    "description": "courseNotes references to add to the course notes",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "description": "list of course notes references",
+                        "items": {
+                            "$ref": "#/definitions/CourseNotesRef"
+                        }
+                    }
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes references succesfully created"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/coursenotesref/{courseNotesRefId}": {
+            "patch": {
+                "summary": "Update this course notes reference",
+                "description": "This endpoint patches some data for this reference\n",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesRefId",
+                    "in": "path",
+                    "description": "Id of the course notes reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesRef",
+                    "in": "body",
+                    "description": "updated course notes reference",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/CourseNotesRef"
+                    }
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes reference successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this course notes reference entirely",
+                "description": "This endpoint removes the course notes reference from the system\n",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "courseNotesRefId",
+                    "in": "path",
+                    "description": "Id of the course notes reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "CourseNotesReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Course notes reference successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/videoref": {
+            "get": {
+                "summary": "Retrieve all the video references for the given replyId",
+                "description": "This endpoint returns all the video references for a reply",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of video references",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of video references",
+                            "items": {
+                                "$ref": "#/definitions/VideoRef"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "add videoreferences to a reply",
+                "description": "This endpoint allows a user to add videoreferences to a reply in a video",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videorefs",
+                    "in": "body",
+                    "description": "video references to add to the video",
+                    "required": true,
+                    "schema": {
+                        "type": "array",
+                        "description": "list of video references",
+                        "items": {
+                            "$ref": "#/definitions/VideoRef"
+                        }
+                    }
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video references succesfully created"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/videoref/{videoRefId}": {
+            "patch": {
+                "summary": "Update this video reference",
+                "description": "This endpoint patches some data for this reply\n",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videoRefId",
+                    "in": "path",
+                    "description": "Id of the video reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videoref",
+                    "in": "body",
+                    "description": "updated video reference",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/VideoRef"
+                    }
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video reference successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this video reference entirely",
+                "description": "This endpoint removes the video reference from the system\n",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "videoRefId",
+                    "in": "path",
+                    "description": "Id of the video reference",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "VideoReference"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video reference successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/comment/{commentId}/children": {
+            "post": {
+                "summary": "add a new reply to a comment",
+                "description": "This endpoint allows a user to add a reply to a comment",
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "reply",
+                    "in": "body",
+                    "description": "reply to add to the vcomment",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Reply"
+                    }
+                }],
+                "tags": [
+                    "Reply"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "the id of the created reply",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/reply/{replyId}": {
+            "patch": {
+                "summary": "Update this reply",
+                "description": "This endpoint patches some data for this reply\n",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "reply",
+                    "in": "body",
+                    "description": "updated reply",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Reply"
+                    }
+                }],
+                "tags": [
+                    "Reply"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Reply successfully updated"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Remove this reply entirely",
+                "description": "This endpoint removes the reply from the system\n",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "Reply"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Reply successfully deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/reply/{replyId}/children": {
+            "post": {
+                "summary": "add a new reply to an existing reply",
+                "description": "This endpoint allows a user to add a reply to an existing reply",
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "name": "reply",
+                    "in": "body",
+                    "description": "new reply to add to the existing reply",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Reply"
+                    }
+                }],
+                "tags": [
+                    "Reply"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "the id of the created reply",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/" : {
+          "post": {
+            "summary": "add a new course",
+            "tags": [
+              "Course"
+            ],
+            "parameters": [
+              {
+                "name": "course",
+                "in": "body",
+                "description": "course to add",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/Course"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Succesfully added course",
+                  "schema": {
+                    "$ref": "#/definitions/Course"
+                  }
+                },
+                "default": {
+                  "description": "Unexpected error",
+                  "schema": {
+                            "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+          },
+          "get": {
+                "summary": "Retrieve all the courses",
+                "tags": [
+                    "Course"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully retrieved courses",
+                        "schema": {
+                            "type": "array",
+                            "description": "list of courses",
+                            "items": {
+                                "$ref": "#/definitions/Course"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/subscribe" : {
+            "post": {
+                "summary": "Subscribe to course (empty body)",
+                "tags": [
+                    "Course"
+                ],
+                "parameters": [{
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully subscribed to course"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/unsubscribe" : {
+            "post": {
+                "summary": "Unsubscribe from course (empty body)",
+                "tags": [
+                    "Course"
+                ],
+                "parameters": [{
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully unsubscribed to course"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}" : {
+            "get": {
+                "summary": "Retrieve specific courses",
+                "tags": [
+                    "Course"
+                ],
+                "parameters": [{
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully retrieved course",
+                        "schema": {
+                            "$ref": "#/definitions/Course"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Edit all the courses",
+                "tags": [
+                    "Course"
+                ],
+                "parameters": [
+                {
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                },
+                {
+                  "name": "course",
+                  "in": "body",
+                  "description": "course to add",
+                  "required": true,
+                  "schema": {
+                    "$ref": "#/definitions/Course"
+                  }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully updated course",
+                        "schema": {
+                            "$ref": "#/definitions/Course"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a course",
+                "parameters": [{
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "tags": [
+                    "Course"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully deleted course"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/{courseId}/lecture": {
+          "get": {
+              "summary": "Retrieve all the lectures",
+              "tags": [
+                  "Lecture"
+              ],
+              "parameters": [{
+                  "name": "courseId",
+                  "in": "path",
+                  "description": "Id of the course",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Succesfully retrieved lectures",
+                      "schema": {
+                          "type": "array",
+                          "description": "list of lectures",
+                          "items": {
+                              "$ref": "#/definitions/Lecture"
+                          }
+                      }
+                  },
+                  "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                          "$ref": "#/definitions/Error"
+                      }
+                  }
+              }
+          },
+          "post": {
+                "summary": "add a new lecture",
+                "tags": [
+                  "Lecture"
+                ],
+                "parameters": [
+                  {
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  {
+                    "name": "lecture",
+                    "in": "body",
+                    "description": "lecture to add",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Lecture"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "the created lecture",
+                      "schema": {
+                        "$ref": "#/definitions/Lecture"
+                      }
+                    },
+                    "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                                "$ref": "#/definitions/Error"
+                      }
+                    }
+                  }
+          }
+        },
+        "/course/{courseId}/lecture/{lectureId}": {
+          "get": {
+              "summary": "Retrieve specific",
+              "tags": [
+                  "Lecture"
+              ],
+              "parameters": [{
+                  "name": "courseId",
+                  "in": "path",
+                  "description": "Id of the course",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+              },{
+                  "name": "lectureId",
+                  "in": "path",
+                  "description": "Id of the lecture",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Succesfully retrieved lecture",
+                      "schema": {
+                          "$ref": "#/definitions/Lecture"
+                      }
+                  },
+                  "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                          "$ref": "#/definitions/Error"
+                      }
+                  }
+              }
+          },
+          "patch": {
+                "summary": "update a lecture",
+                "tags": [
+                  "Lecture"
+                ],
+                "parameters": [
+                  {
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  {
+                      "name": "lectureId",
+                      "in": "path",
+                      "description": "Id of the lecture",
+                      "required": true,
+                      "type": "integer",
+                      "format": "int64"
+                  },
+                  {
+                    "name": "lecture",
+                    "in": "body",
+                    "description": "lecture to add",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Lecture"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "succesfully updated lecture",
+                      "schema": {
+                        "$ref": "#/definitions/Lecture"
+                      }
+                    },
+                    "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                                "$ref": "#/definitions/Error"
+                      }
+                    }
+                  }
+          },
+          "delete": {
+                "summary": "delete a lecture",
+                "parameters": [{
+                  "name": "courseId",
+                  "in": "path",
+                  "description": "Id of the course",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+                },{
+                  "name": "lectureId",
+                  "in": "path",
+                  "description": "Id of the lecture",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+                }],
+                "tags": [
+                    "Lecture"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully deleted lecture"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+          }
+        },
+        "/course/{courseId}/lecture/{lectureId}/upload" : {
+            "post": {
+                "summary": "upload a coursenotes pdf",
+                "tags": [
+                  "CourseNotes"
+                ],
+                "parameters": [
+                  {
+                    "name": "courseId",
+                    "in": "path",
+                    "description": "Id of the course",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  {
+                    "name": "lectureid",
+                    "in": "path",
+                    "description": "Id of the lecture",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "the created lecture",
+                      "schema": {
+                        "$ref": "#/definitions/Lecture"
+                      }
+                    },
+                    "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                                "$ref": "#/definitions/Error"
+                      }
+                    }
+                  }
+                  
+            }
+        },
+        "/course/{courseId}/lecture/{lectureId}/coursenotes/{courseNotesId}/download-annotations": {
+            "get": {
+              "summary": "Retrieve the pdf with added comments",
+              "tags": [
+                  "CourseNotes"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Succesfully retrieved pdf",
+                      "schema": {
+                          "type": "string",
+                          "description": "annotated pdf"
+                      }
+                  },
+                  "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                          "$ref": "#/definitions/Error"
+                      }
+                  }
+              }
+            }
+        },
+        "/user": {
+          "get": {
+              "summary": "Retrieve all the users",
+              "tags": [
+                  "User"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Succesfully retrieved users",
+                      "schema": {
+                          "type": "array",
+                          "description": "list of users",
+                          "items": {
+                              "$ref": "#/definitions/User"
+                          }
+                      }
+                  },
+                  "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                          "$ref": "#/definitions/Error"
+                      }
+                  }
+              }
+          },
+          "post": {
+            "summary": "Add a new user",
+            "tags": [
+              "User"
+            ],
+            "parameters": [
+              {
+                "name": "user",
+                "in": "body",
+                "description": "user to add",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/User"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "the created user",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "default": {
+                  "description": "Unexpected error",
+                  "schema": {
+                            "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+          }
+        },
+        "/user/{userId}": {
+          "get": {
+              "summary": "Retrieve a user",
+              "tags": [
+                  "User"
+              ],
+            "parameters": [{
+              "name": "userId",
+              "in": "path",
+              "description": "Id of the user",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }],
+              "responses": {
+                  "200": {
+                      "description": "Succesfully retrieved user",
+                      "schema": {
+                        "$ref": "#/definitions/User"
+                      }
+                  },
+                  "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                          "$ref": "#/definitions/Error"
+                      }
+                  }
+              }
+          },
+          "patch": {
+            "summary": "Update a user",
+            "tags": [
+              "User"
+            ],
+            "parameters": [{
+              "name": "userId",
+              "in": "path",
+              "description": "Id of the user",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }],
+            "responses": {
+              "200": {
+                  "description": "the updated user",
+                  "schema": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "default": {
+                  "description": "Unexpected error",
+                  "schema": {
+                            "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+          },
+          "delete" : {
+                "summary": "delete a user",
+                "parameters": [{
+                  "name": "userId",
+                  "in": "path",
+                  "description": "Id of the user",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+                }],
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully deleted lecture"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+          }
+        },
+        "/login": {
+          "post": {
+            "summary": "Post login credentials",
+            "tags": [
+              "Login"
+            ],
+            "parameters": [
+              {
+                "name": "credentials",
+                "in": "body",
+                "description": "credentials to check",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "required": [
+                        "username",
+                        "password"
+                    ],
+                    "properties": {
+                        "username": {
+                            "type": "string",
+                            "description": "Your personal username"
+                        },
+                        "password": {
+                            "type": "string",
+                            "description": "Password for this user"
+                        }
+                    }
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "The session id for the authenticated user",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                        "sessionId": {
+                            "type": "string",
+                            "description": "sessionId"
+                        }
+                    }
+                  }
+                },
+                "default": {
+                  "description": "Unexpected error",
+                  "schema": {
+                            "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+          },
+          "get": {
+              "summary": "Check user and role in current session",
+              "tags": [
+                  "Login"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Succesfully retrieved user",
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                            "username",
+                            "role"
+                        ],
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "description": "Your personal username"
+                            },
+                            "role": {
+                                "type": "string",
+                                "description": "None/Student/Teacher/Admin"
+                            }
+                        }
+                      }
+                  },
+                  "default": {
+                      "description": "Unexpected error",
+                      "schema": {
+                          "$ref": "#/definitions/Error"
+                      }
+                  }
+              }
+          }
+        },
+        "/logout": {
+          "post": {
+            "summary": "Close current session.",
+            "tags": [
+              "Login"
+            ],
+            "responses": {
+              "200": {
+                  "description": "Succesfully logged out!"
+                },
+                "default": {
+                  "description": "Unexpected error",
+                  "schema": {
+                            "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+          }
+        },
+        "/lti/keypair": {
+          "post": {
+            "summary": "Create new LTI key-secret pair",
+            "tags": [
+              "LTI"
+            ],
+            "parameters": [
+              {
+                "name": "key",
+                "in": "body",
+                "description": "key to generate secret for",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "required": [
+                        "key"
+                    ],
+                    "properties": {
+                        "key": {
+                            "type": "string",
+                            "description": "key"
+                        }
+                    }
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Succesfully retrieved key secret pair",
+                  "schema": {
+                        "type" : "object",
+                        "properties": {
+                            "Key": {
+                              "type": "string",
+                              "description": "Key"
+                            },
+                            "Secret": {
+                              "type": "string",
+                              "description": "Secret"
+                            }
+                        }
+                  }
+                },
+                "default": {
+                  "description": "Unexpected error",
+                  "schema": {
+                            "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+          }
+        },
+        "/comment/{commentId}/approve" : {
+            "post": {
+                "summary": "Approve a comment (empty body)",
+                "tags": [
+                    "Comment"
+                ],
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully approved comment"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/comment/{commentId}/unapprove" : {
+            "post": {
+                "summary": "Unapprove a comment (empty body)",
+                "tags": [
+                    "Comment"
+                ],
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully unapproved comment"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/comment/{commentId}/upvote" : {
+            "post": {
+                "summary": "Upvote a comment (empty body)",
+                "tags": [
+                    "Comment"
+                ],
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully upvote comment"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/comment/{commentId}/downvote" : {
+            "post": {
+                "summary": "Downvote a comment (empty body)",
+                "tags": [
+                    "Comment"
+                ],
+                "parameters": [{
+                    "name": "commentId",
+                    "in": "path",
+                    "description": "Id of the comment",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully downvote comment"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/approve" : {
+            "post": {
+                "summary": "Approve a reply (empty body)",
+                "tags": [
+                    "Reply"
+                ],
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully approved reply"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/unapprove" : {
+            "post": {
+                "summary": "Unapprove a reply (empty body)",
+                "tags": [
+                    "Reply"
+                ],
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully unapproved reply"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/upvote" : {
+            "post": {
+                "summary": "Upvote a reply (empty body)",
+                "tags": [
+                    "Reply"
+                ],
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully upvote reply"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/reply/{replyId}/downvote" : {
+            "post": {
+                "summary": "Downvote a reply (empty body)",
+                "tags": [
+                    "Reply"
+                ],
+                "parameters": [{
+                    "name": "replyId",
+                    "in": "path",
+                    "description": "Id of the reply",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully downvote reply"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "required": [
+                "username",
+                "password",
+                "role"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the user"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Unique username"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Password for the user"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "None/Student/Teacher/Admin"
+                },
+                "subscriptions": {
+                  "type": "array",
+                    "description": "List of subscribed courses",
+                    "items": {
+                        "$ref": "#/definitions/Course"
+                    }
+                }
+            }
+        },
+        "Course": {
+            "type": "object",
+            "required": [
+              "name", "courseId"
+            ],
+            "properties": {
+                "courseId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the course"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of this course"
+                },
+                "videos": {
+                  "type": "array",
+                    "description": "List of videos",
+                    "items": {
+                        "$ref": "#/definitions/Video"
+                    }
+                },
+                "courseNotes": {
+                  "type": "array",
+                    "description": "List of coursenotes",
+                    "items": {
+                        "$ref": "#/definitions/CourseNotes"
+                    }
+                },
+                "lectures": {
+                  "type": "array",
+                    "description": "List of lectures",
+                    "items": {
+                        "$ref": "#/definitions/Lecture"
+                    }
+                }
+            }
+        },
+        "Lecture": {
+            "type": "object",
+            "required": [
+              "name", "lectureId"
+            ],
+            "properties": {
+                "lectureId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the course"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of this course"
+                },
+                "videos": {
+                  "type": "array",
+                    "description": "List of videos",
+                    "items": {
+                        "$ref": "#/definitions/Video"
+                    }
+                },
+                "courseNotes": {
+                  "type": "array",
+                    "description": "List of coursenotes",
+                    "items": {
+                        "$ref": "#/definitions/CourseNotes"
+                    }
+                }
+            }
+        },
+        "Video": {
+            "type": "object",
+            "required": [
+                "name",
+                "url"
+            ],
+            "properties": {
+                "videoId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the video"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of this video"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Url of the video"
+                },
+                "duration": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Length of the video expressed in seconds"
+                }
+            }
+        },
+        "CourseNotes": {
+            "type": "object",
+            "required": [
+                "name",
+                "url"
+            ],
+            "properties": {
+                "courseNotesId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the course notes"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of this course notes"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Url of the course notes"
+                },
+                "numberOfPages": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Number of pages these course notes contain"
+                }
+            }
+        },
+        "Comment": {
+            "type": "object",
+            "required": [
+                "username",
+                "body",
+                "question"
+            ],
+            "properties": {
+                "commentId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the comment"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Name of the user that made the comment"
+                },
+                "body": {
+                    "type": "string",
+                    "description": "The content of the comment"
+                },
+                "creationTime": {
+                    "type": "string",
+                    "description": "Creation time expressed along the ISO 8601 standard"
+                },
+                "selfVideoReferences": {
+                  "type": "array",
+                    "description": "List of references to the current video",
+                    "items": {
+                        "$ref": "#/definitions/VideoRef"
+                    }
+                },
+                "selfCourseNotesReferences": {
+                  "type": "array",
+                    "description": "List of references to the current course notes",
+                    "items": {
+                        "$ref": "#/definitions/CourseNotesRef"
+                    }
+                },
+                "question": {
+                    "type": "boolean",
+                    "description": "True if this comment is a question"
+                },
+                "replies": {
+                    "type": "array",
+                    "description": "List of replies to this comment",
+                    "items": {
+                        "$ref": "#/definitions/Reply"
+                    }
+                },
+                "votes": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "number of votes"
+                },
+                "approved": {
+                    "type": "boolean",
+                    "description": "True if this comment is approved"
+                }
+            }
+        },
+        "Reply": {
+            "type": "object",
+            "required": [
+                "username",
+                "body"
+            ],
+            "properties": {
+                "replyId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Id of the reply"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Name of the user that made the comment"
+                },
+                "body": {
+                    "type": "string",
+                    "description": "The content of the comment"
+                },
+                "creationTime": {
+                    "type": "integer",
+                    "format": "long",
+                    "description": "Creation time expressed in seconds since 1970"
+                },
+                "replies": {
+                    "type": "array",
+                    "description": "List of replies to this comment",
+                    "items": {
+                        "$ref": "#/definitions/Reply"
+                    }
+                },
+                "votes": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "number of votes"
+                },
+                "approved": {
+                    "type": "boolean",
+                    "description": "True if this reply is approved"
+                }
+            }
+        },
+        "VideoRef": {
+            "type": "object",
+            "required": [
+                "videoId",
+                "timestamp"
+            ],
+            "properties": {
+                "courseId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the course containing the video"
+                },
+                "lectureId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the lecture containing the video"
+                },
+                "videoId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the video this object is referencing to"
+                },
+                "refId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the reference"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The time expressed in seconds corresponding to were the comment is in the video"
+                },
+                "visible": {
+                    "type": "boolean",
+                    "description": "The visibility of the reference"
+                }
+            }
+        },
+        "CourseNotesRef": {
+            "type": "object",
+            "required": [
+                "courseNotesId",
+                "locations"
+            ],
+            "properties": {
+                "courseId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the course containing the courseNotes"
+                },
+                "lectureId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the lecture containing the courseNotes"
+                },
+                "courseNotesId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the course notes this object is referencing to"
+                },
+                "refId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the reference"
+                },
+                "locations": {
+                    "type": "array",
+                    "description": "List of locations where the reference is located in the course notes",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    }
+                },
+                "visible": {
+                    "type": "boolean",
+                    "description": "The visibility of the reference"
+                }
+            }
+        },
+        "Location": {
+            "type": "object",
+            "required": [
+                "pageNumber",
+                "x1",
+                "y1",
+                "x2",
+                "y2"
+            ],
+            "properties": {
+                "pageNumber": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The page corresponding to were the comment is in the coursenotes"
+                },
+                "x1": {
+                    "type": "integer",
+                    "format": "double",
+                    "description": "coordinate x of upper left corner of the rectangle"
+                },
+                "y1": {
+                    "type": "integer",
+                    "format": "double",
+                    "description": "coordinate y of upper left corner of the rectangle"
+                },
+                "x2": {
+                    "type": "integer",
+                    "format": "double",
+                    "description": "coordinate x of lower right corner of the rectangle"
+                },
+                "y2": {
+                    "type": "integer",
+                    "format": "double",
+                    "description": "coordinate y of lower right corner of the rectangle"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "required": [
+                "message",
+                "code"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The error code."
+                },
+                "message": {
+                    "type": "string",
+                    "description": "A (verbose) description of the error."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<div class="center">
+    <div class="content-container">
+        <h3>Account
+            <a tooltip-animation="true" uib-tooltip="delete account" tooltip-popup-delay='500'  ng-really-message="{{confirmdelete}}" ng-really-click="deleteAccount()" style="padding-left:2px">
+                <i class="material-icons md-24">delete</i>
+            </a>
+        </h3>
+        
+        <div class="panel-body">
+            <p><strong>Username:</strong> {{$root.user.username}} </p>
+            <p><strong>Role:</strong> {{$root.user.role}} </p>
+            <a class="btn btn-default btn-sm playbtn pull-Left" ui-sref="stateCourses()">MyCourses</a>
+            <a class="btn btn-default btn-sm playbtn pull-Right" ng-click="logout()">Logout</a>
+            <a class="btn btn-default btn-sm playbtn pull-Right" ng-click="init();createKey = !createKey" ng-show="$root.user.role == 'ADMIN' && !createKey">Create LTI Key-Secret Pair</a>
+        </div>  
+        
+        <div class="panel-body" ng-show="createKey">
+            <h5><strong> LTI key-secret pair</strong></h5>
+            <div ng-hide="succes">
+                <div style="padding-top:5px">
+                    <label for="key">Insert the key you want to use to generate a secret with:</label>    
+                    <input ng-model="key" name="key" id="key" type="text" style="width:30%" required />
+                </div>
+                <div>
+                    <span style="color:red" class="help-block" ng-hide="correctKey"> The current key is already used or can't be used. Please choose another key!</span>
+                </div>
+                <div>
+                    <a class="btn btn-default btn-sm playbtn pull-Left" ng-click="generateSecret()">Generate Secret</a>
+                </div>
+            </div>
+            <div ng-show="succes">
+                <div>
+                    <span style="color:red" class="help-block">Save this key-secret pair and don't show it to anybody! <br>Your pair can't be retrieved when you lose or forget it!</span> 
+                </div>
+                <div style="padding-bottom:4px">
+                    <strong>(Key, Secret) = <span style="color:green">( {{key}} , {{secret}} )</span></strong>
+                </div>
+                <a class="btn btn-default btn-sm playbtn pull-Right" ng-click="init()">I understand</a>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>

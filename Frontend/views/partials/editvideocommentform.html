@@ -1,0 +1,28 @@
+<div class="modal-header">Edit comment</div>
+<div class="modal-body">
+    <form name="commentform" novalidate>
+        <div class="form" text-align="left">
+            <div class="input-field timeform">
+                <input ng-model="edited_comment.hours" id="timestamphh"  type="text" ngMaxlength="2" ngMinlength="2" maxlength="2" value="HH">
+                <label for="timestamphh">Timestamp</label>
+            </div>
+            <div class="input-field timeform">
+                <input ng-model="edited_comment.minutes" id="timestampmm"  type="text" ngMaxlength="2" ngMinlength="2" maxlength="2" value="MM">
+            </div>
+            <div class="input-field timeform">
+                <input ng-model="edited_comment.seconds" id="timestampss"  type="text" ngMaxlength="2" ngMinlength="2" maxlength="2" value="SS">
+            </div>
+            <br/>
+            <div class="input-field">
+                <textarea ng-model="edited_comment.body" id="comment" class="materialize-textarea"></textarea>
+                <label for="comment">Comment</label>
+            </div>
+            <div class="input-field">
+                <input ng-model="edited_comment.question" id="question" type="checkbox" /><p class="inline">&nbsp; This is a question</p>
+            </div>
+            <br/><br/>
+            <button ng-click="save()" class="btn btn-default btn-sm">Save</button>
+            <button ng-click="cancel()" class="btn btn-default btn-sm">Cancel</button>
+    </form>
+</div>
+

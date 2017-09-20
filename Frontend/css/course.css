@@ -1,0 +1,121 @@
+.centerflex {
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+
+.unsub {
+    background-color: #f6f6f6;
+}
+
+.coursetitle {
+    font-size: 2.92rem;
+    line-height: 110%;
+    margin: 1.46rem 0 1.168rem 0;
+    font-weight: 300;
+    font-family: inherit;
+}
+
+.nameinput input {
+    font-size: 2.92rem;
+    line-height: 110%;
+    margin: 1.46rem 0 1.168rem 0;
+    font-weight: 300;
+    font-family: inherit;
+    width: 70%;
+    opacity: 0.9;
+}
+
+.editdelete {
+    margin-top: 35px;
+}
+
+.panel-title {
+    padding: 10px;
+}
+
+.videos {
+    width: 220px;
+    padding-bottom: 15px;
+}
+
+.lectures {
+    width: 140px;
+    margin: 0 7px;
+}
+
+.lecturetitle {
+    width: 140px;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.notes {
+    width: 140px;
+    margin: 0 7px;
+}
+
+.notestitle {
+    width: 140px;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.videoimg {
+    margin: auto;
+    width: 200px;
+}
+
+.icon-72 {
+    font-size: 72px;
+}
+
+
+.icon-100 {
+    font-size: 100px;
+}
+
+.add-video, .add-coursenotes {
+    padding:15px;
+}
+
+.videotitle {
+    margin: auto;
+    width: 200px;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.nomarginbtn {
+    margin:0;
+}
+
+.clearfile {
+    vertical-align: middle;
+}
+
+.searchbar {
+    padding: 0;
+    width: 50%;
+    margin-left: 50%;
+}
+
+.input-field .prefix.active {
+    color: #444;
+}
+
+.input-field .prefix {
+    font-size: 24px;
+    padding: 5px;
+    margin-left: 7px;
+}

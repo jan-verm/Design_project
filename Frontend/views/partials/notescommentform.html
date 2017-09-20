@@ -1,0 +1,21 @@
+<form name="commentform" novalidate class="form" ng-init="setFormScope(this)">
+    <div class="input-field inline-block">
+        <button ng-click="selectText(true)" id="highlightButton" class="btn btn-default btn-sm" type="button">Highlight selected text</button>
+        <div style="color:red" ng-show="highlightToAdd==null" class="inline">Text not selected</div>
+        <div style="color:green" ng-show="highlightToAdd!=null && !isHighlightToAddOverlapping()" class="inline">Text correctly highlighted</div>
+        <div style="color:orange" ng-show="isHighlightToAddOverlapping()" class="inline">Highlight is overlapping (may be hidden)</div>
+    </div>
+    <div class="input-field">
+        <textarea ng-model="new_comment.text" id="comment" name="userComment" class="materialize-textarea" required=""></textarea>
+        <div ng-show="commentform.$submitted || commentform.userComment.$touched">
+            <span style="color:red" class="help-block" ng-show="commentform.userComment.$error.required">A comment is required.</span>
+        </div>
+        <label for="comment">Comment</label>
+    </div>
+    <div class="input-field">
+        <input ng-model="new_comment.question" id="question" type="checkbox" /><p class="inline">&nbsp; This is a question</p>
+    </div>
+    <br/>
+    <button type="submit" ng-click="submitComment(commentform)" class="btn btn-default btn-sm">submit</button>
+    <button type="button" ng-click="closeCommentForm(commentform, 'addComment')" class="btn btn-default btn-sm">cancel</button>
+</form>

@@ -1,0 +1,20 @@
+<nav class="navbar navbar-fixed-top unique-color">
+    <div class="container-fluid fullwidth navbarcontainer">
+
+        <div class="inline-block" style="float:left" id="breadcrumbDiv">
+            <ui-breadcrumbs displayname-property="data.displayName"
+                template-url="node_modules/angular-utils-ui-breadcrumbs/uiBreadcrumbs.tpl.html">
+            </ui-breadcrumbs>
+        </div>
+        <div class="inline-block accountinfo" ng-show="user" id="accountDiv">
+            <span>
+                <small>Logged in as </small>
+                <a ui-sref='stateAccount()' style="color:white"><strong><u>{{user.username}}</u></strong></a>
+            </span>    
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <div ui-view="content"></div>
+        </div>
+        
+    </div>
+</nav>

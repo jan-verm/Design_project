@@ -1,0 +1,51 @@
+<div class="coursenotes">
+    <h4 class="coursenotestitle">Lecture {{notes.id}} - <span ng-hide="editName"><em id="notesname">{{notes.name}}</em></span><span ng-show="editName"><input ng-model="notes.name" type="text" style="width:400px;font-size:x-large"></span><a ng-click="editName = !editName"><i ng-show="!editName && isOwner" class="material-icons md-18" tooltip-animation="true" uib-tooltip="change name" tooltip-popup-delay='500' style="margin-left:10px">edit</i></a><button type="submit" ng-click="changeName(notes);editName=!editName" ng-show="editName" class="btn btn-default btn-sm inline-block">save</button></h4>
+    
+    <div class="coursenotesviewer">
+        <iframe id="classicViewer" onload="iframeLoaded()" class="full-container" src="views/pdfjs/viewer.html?file="></iframe>
+    </div>
+
+    <div class="coursenotesannotations annotations">
+        <div class="commentcontrols input-field inline-block">
+            <div class="commentselector input-field inline-block">
+                <div class="inline">
+                    <Strong>Show: </Strong>
+                </div>
+                <div class="inline">Annotations
+                    <input type="checkbox" ng-model="checkboxModel.showannotations" ng-change="reloadVisualizations()">
+                </div>
+                <div class="inline">Questions
+                    <input type="checkbox" ng-model="checkboxModel.showquestions" ng-change="reloadVisualizations()">
+                </div>
+            </div>
+            
+            <div class="commentsorter input-field inline-block">
+                <Strong> Sort by: </Strong>
+                <select ng-init="sortOrders = 'votes'" ng-model="sortOrders" ng-change="sort()" class="pretty-select" style="background-color:transparent;">
+                    <option value="votes">votes</option>
+                    <option value="date">date</option>
+                    <option value="page number">page number</option>  
+                </select>
+            </div>
+        </div>
+        <div class="coursenotescommentsection" id="coursenotescommentsection" ng-include="'views/partials/commentsection.html'"></div>
+        
+        <div class="input-field inline-block buttonsection" ng-show="showCommentForm && showEditCommentForm">
+            <button ng-click="openCommentForm()" type="button" class="btn btn-default btn-lg playbtn coursenotesaddcommentbutton" >
+                Add comment
+            </button>
+            <button ng-click="downloadPDF()" type="button" class="btn btn-default btn-lg playbtn coursenotesdownloadbutton">
+                Download...
+            </button>
+        </div>
+        
+
+        
+        <div ng-hide="showCommentForm">
+            <div class="popup-form coursenotescommentform" ng-include="'views/partials/notescommentform.html'"></div>
+        </div>
+        <div ng-hide="showEditCommentForm">
+            <div class="popup-form coursenoteseditcommentform" ng-include="'views/partials/editnotescommentform.html'"></div>
+        </div>
+    </div>
+</div>

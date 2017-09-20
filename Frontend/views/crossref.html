@@ -1,0 +1,84 @@
+<div class="modal-header">Add Cross-reference</div>
+<div class="modal-body">
+    <div class="row padded">
+        <p>Select course: 
+            <select class="pretty-select form-control" ng-model="selected_course" 
+                    ng-change="getLectures(selected_course.courseId); selected_file = {}" 
+                    ng-options="course.name for course in cr_courses"></select>
+        </p>
+        
+        <p>Select lecture: 
+            <select class="pretty-select form-control" ng-model="selected_lecture" 
+                    ng-change="getFiles(selected_course.courseId, selected_lecture.lectureId, false); selected_file = {}"
+                    ng-options="lecture.name for lecture in cr_lectures"></select>
+        </p>
+        
+        <p>Select a file:</p>
+        <div ng-repeat="f in files" ng-click="selectFile(f)" class="hoverhand"
+             ng_class="{'selected-file': (selected_file === f)}">
+            <i class="material-icons icon-cr" ng-show="f.isNotes">insert_drive_file</i>
+            <i class="material-icons icon-cr" ng-show="f.isVideo">movie</i>
+            {{f.name}}
+        </div>
+        <div ng-show="files.length == 0"><em>No files available.</em></div>
+        <button ng-click="currentFile()" type="button" class=" btn btn-default btn-sm">Use current file</button>
+        
+        <br/>
+        <div ng-show="selected_file.isVideo">
+            <div class="cr-video">
+                <videogular vg-player-ready="crossrefctrl.onPlayerReady($API)" vg-theme="crossrefctrl.config.theme.url">
+                    <vg-media vg-src="crossrefctrl.config.sources" vg-youtube="rel=1;showinfo=1" vg-preload="auto"></vg-media>
+                    <vg-controls vg-autohide="crossrefctrl.config.plugins.controls.autoHide" 
+                                 vg-autohide-time="crossrefctrl.config.plugins.controls.autoHideTime">
+                        <vg-play-pause-button></vg-play-pause-button>
+                        <vg-time-display>{{ currentTime | date:'HH:mm:ss':'+0000'}}</vg-time-display>
+                        <vg-scrub-bar>
+                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                        </vg-scrub-bar>
+                        <vg-time-display>{{ totalTime | date:'HH:mm:ss':'+0000'}}</vg-time-display>
+                        <vg-volume>
+                            <vg-mute-button></vg-mute-button>
+                            <vg-volume-bar></vg-volume-bar>
+                        </vg-volume>
+                        <vg-fullscreen-button></vg-fullscreen-button>
+                    </vg-controls>		
+                </videogular>
+            </div>
+            <div style="padding-top: 15px;">
+                <div class="inline-block">
+                    <div class="input-field timeform">
+                        <input ng-model="crtime.hours" id="timestamphh"  type="text" ng-maxlength="2" ng-minlength="2" maxlength="2" placeholder="HH" name="hours" required>
+                        <label for="timestamphh">Timestamp</label>
+                    </div>
+                    <div class="input-field timeform">
+                        <input ng-model="crtime.minutes" id="timestampmm"  type="text" ng-maxlength="2" ng-minlength="2" maxlength="2" placeholder="MM" name="minutes" required>
+                    </div>
+                    <div class="input-field timeform">
+                        <input ng-model="crtime.seconds" id="timestampss"  type="text" ng-maxlength="2" ng-minlength="2" maxlength="2" placeholder="SS" name="seconds" required>
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <button ng-click="currentTime()" type="button" 
+                        class="inline-block btn btn-default btn-sm">Set to current time</button>
+            </div>
+            <button ng-click="vidCrossRef()" type="button" 
+                        class="btn btn-default btn-sm">Confirm</button>
+            <button ng-click="$dismiss()" type="button" 
+                        class="btn btn-default btn-sm">Cancel</button>
+        </div>
+
+        <div ng-show="selected_file.isNotes">
+            <div class="viewerjs-container"> <!-- ng-bind-html="viewer" highlights-directive-->
+                <iframe id="crossrefViewer" class="full-container" style="width:75%;height:700px" src="views/pdfjs/viewer.html?file="></iframe>
+            </div>
+            <button ng-click="selectcrText(true)" type="button" 
+                        class="inline-block btn btn-default btn-sm">Highlight selected text</button>
+            <button ng-click="notesCrossRef()" type="button" 
+                        class="btn btn-default btn-sm" ng-disabled="!selected">Confirm</button>
+            <button ng-click="$dismiss()" type="button" 
+                        class="btn btn-default btn-sm">Cancel</button>
+            <div ng-hide="selected" style="color:red">No text selected!</div>
+            <div ng-show="selected" style="color:green">Text correctly selected.</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="center">
+    <div class="content-container">
+        <h4>Course Overview<a class="inline-block pull-right" ng-click="addCourseForm = !addCourseForm" ng-show="user.role != 'STUDENT'"><i class="material-icons md-32">add_circle</i></a></h4>
+            <div ng-show="addCourseForm">
+                <form name="urlForm" novalidate class="form popup-form">
+                    <div class="wrong-login err-msg" ng-Show="coursenametaken">A course with this name already exists.</div>
+                    <div class="input-field">
+                        <input ng-model="new_course.name" id="name" name="name" type="text">
+                        <label for="name">Course Name</label> 
+                    </div>
+
+                    <button type="submit" ng-click="addCourse()" class="btn btn-default btn-sm">add</button>
+                    <button ng-click="addCourseForm = !addCourseForm;" class="btn btn-default btn-sm">cancel</button>
+                </form>
+                <br/>
+            </div>
+        
+                <div class="input-field searchbar">
+                <i class="material-icons prefix">search</i>
+                <input id="icon_prefix" type="text" ng-model="search.name" id="search" name="search" placeholder="Search courses">
+                </div>
+        
+        <div ng-repeat="course in courses | orderBy:'name' | filter: search" class="panel panel-default">
+            <div class="panel-body">
+                <div class="inline-block coursename"">{{course.name}}</div>
+                <div class="inline-block pull-right btn btn-default btn-sm nomarginbtn" 
+                     ng-show="!isSubscribed(course.courseId) && !isOwner(course.courseId)" 
+                     ng-click="subscribe(course.courseId)">Subscribe</div>
+                
+                <div class="inline-block pull-right btn btn-default btn-sm nomarginbtn unsub" 
+                     ng-show="isSubscribed(course.courseId) && !isOwner(course.courseId)" 
+                     ng-click="unsubscribe(course.courseId)">Unsubscribe</div>
+                
+                <div class="inline-block pull-right" ng-show="isOwner(course.courseId)"><em style="color: #888">You own this course.</em></div>
+            </div>
+        </div>
+    </div>
+</div>

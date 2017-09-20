@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="create_account.html">create_account</a></td></tr>
+<tr><td><a href="login.html">login</a></td></tr>
+<tr><td><a href="add_course.html">add_course</a></td></tr>
+<tr><td><a href="add_lecture.html">add_lecture</a></td></tr>
+<tr><td><a href="add_video.html">add_video</a></td></tr>
+<tr><td><a href="add_coursenotes.html">add_coursenotes</a></td></tr>
+<tr><td><a href="add_video_comment.html">add_video_comment</a></td></tr>
+<tr><td><a href="add_reply.html">add_reply</a></td></tr>
+<tr><td><a href="add_reference.html">add_reference</a></td></tr>
+<tr><td><a href="upvote.html">upvote</a></td></tr>
+<tr><td><a href="approve.html">approve</a></td></tr>
+<tr><td><a href="delete_user.html">delete_user</a></td></tr>
+<tr><td><a href="lti.html">lti</a></td></tr>
+</tbody></table>
+</body>
+</html>

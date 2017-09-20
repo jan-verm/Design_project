@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+dependencies {
+    compile project(':models')
+    compile('org.postgresql:postgresql:9.3-1100-jdbc4')
+
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src'
+      exclude 'resources/'     
+    }
+    resources {
+        srcDir 'src/resources'
+    }
+  }
+  test {
+    java {
+      srcDir 'testsrc'
+    }
+    resources {
+        srcDir 'src/resources'
+    }
+  }
+}

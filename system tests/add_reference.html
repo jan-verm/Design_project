@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://student-dp8.intec.ugent.be/" />
+<title>add_reference</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add_reference</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/development/#/mycourses</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Acceptance Test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=p &gt; i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/div/div/a/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=vg-play-pause-button.ng-scope.ng-isolate-scope</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[5]/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//select</td>
+	<td>label=Acceptance Test</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>//p[2]/select</td>
+	<td>label=Lecture 1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timestampss</td>
+	<td>08</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[6]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>xpath=(//a[contains(text(),'TEST VIDEO at 00:00:08')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'TEST VIDEO at 00:00:08')])[2]</td>
+	<td>TEST VIDEO at 00:00:08</td>
+</tr>
+</tbody></table>
+</body>
+</html>

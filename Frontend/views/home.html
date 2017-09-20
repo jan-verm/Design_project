@@ -1,0 +1,23 @@
+<div class="center">
+    <div class="content-container">
+        <h3>Welcome to Classic</h3>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>Classic is a webapplication that allows videos and pdf's to be annotated. These files are contained in lectures or courses and lectures are contained in courses.
+                    Annotating these files is done by adding a comment. A comment can be an annotation or a question. 
+                    </p>
+                    <p>When commenting on a video, a timestamp has to be added and when commenting on a pdf, a piece of text needs to be selected. The link between a comment and its position 
+                    in the file should be apparent to every user.</p>
+                    <p>To these comments a reference can be added. A reference is a link to another timestamp of a video or another piece of text in a pdf. These files can be different than the file you're currently viewing.</p>
+            </div>
+            <div ng-show="!user">
+            <a class="btn btn-default btn-sm playbtn pull-right" ui-sref="stateSignUp()">Sign Up</a>
+            <a class="btn btn-default btn-sm playbtn pull-right" ui-sref="stateLogin()">Login</a>
+            </div>
+            <div ng-show="user">
+                <a class="btn btn-default btn-sm playbtn pull-right" ui-sref="stateCourses()">Go to my courses</a>
+            </div>
+        </div>
+        </div>
+</div>
+

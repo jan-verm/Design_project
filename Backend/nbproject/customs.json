@@ -1,0 +1,17 @@
+{
+    "elements": {
+        "vg-scrub-bar": {},
+        "vg-controls": {},
+        "vg-volume": {},
+        "vg-play-pause-button": {},
+        "videogular": {},
+        "vg-scrub-bar-current-time": {},
+        "vg-volume-bar": {},
+        "vg-fullscreen-button": {},
+        "vg-cuepoints": {},
+        "vg-mute-button": {},
+        "vg-time-display": {},
+        "vg-media": {}
+    },
+    "attributes": {}
+}

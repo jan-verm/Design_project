@@ -1,0 +1,32 @@
+<div class="content-container">
+    <h4> 
+        Sign Up
+    </h4>
+    <div class="panel panel-default">
+        <div class="panel-body padded">
+            <div class="wrong-login err-msg" ng-Show="usernametaken">This username is already taken.</div>
+            <form name="signupform" class="form">
+                <div class="input-field">
+                    <input ng-model="newuser.name" name="username" id="username" type="text" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field">
+                    <input ng-model="newuser.password" name="password" id="password" type="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="input-field">
+                    <input name="confirm_password" id="confirm_password" type="password" required ng-model="newuser.confirm_password" 
+                           ui-validate="'$value==newuser.password'" ui-validate-watch="'newuser.password'"/>
+                    <label for="confirm_password">Confirm password</label>
+                    <div class="err-msg" ng-show="(signupform.password.$error.validator || signupform.confirm_password.$error.validator) && signupform.confirm_password.$dirty">Passwords don't match!</div>
+                </div>
+                <div class="input_field">
+                <label for="role" class="role_label">Role</label>
+                <select class="pretty-select form-control" ng-model="newuser.role" 
+                    ng-options="role.name for role in roles"></select>
+                    
+                <button type="button" ng-disabled="signupform.userName.$error.plaintext || signupform.confirm_password.$error.validator" ng-click="signup()" class="btn btn-default btn-sm pull-right">Sign up</button> 
+            </form>
+        </div>
+    </div>
+</div>

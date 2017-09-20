@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://student-dp8.intec.ugent.be/" />
+<title>add_comment</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add_comment</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/development/#/mycourses</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Acceptance Test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=p &gt; i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/div/div/a/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=vg-play-pause-button.ng-scope.ng-isolate-scope</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=comment</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timestamphh</td>
+	<td>00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timestampmm</td>
+	<td>00</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=timestampss</td>
+	<td>05</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=question</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='submit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=div[name=&quot;test&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=p.inline-block.ng-binding &gt; strong.ng-binding</td>
+	<td>acceptancetests</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=exact:00:00:05</td>
+	<td>exact:00:00:05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.voting &gt; span.ng-binding</td>
+	<td>0</td>
+</tr>
+</tbody></table>
+</body>
+</html>

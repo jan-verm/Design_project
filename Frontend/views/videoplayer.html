@@ -1,0 +1,72 @@
+
+<h4 class="coursenotestitle" style="margin-left:75px"><span ng-hide="editName" style="text-align:left"><em id="videoname">{{video.name}}</em></span><span ng-show="editName"><input ng-model="video.name" type="text" style="width:600px;font-size:large"></span><a ng-click="editName = !editName"><i ng-show="!editName && isOwner" class="material-icons md-18" tooltip-animation="true" uib-tooltip="change name" tooltip-popup-delay='500' style="margin-left:10px">edit</i></a><button type="submit" ng-click="changeName(video);editName=!editName" ng-show="editName" class="btn btn-default btn-sm inline-block">save</button></h4>
+
+
+<div class="center"> 
+    <div class="videogular-container" id="videoplayer">
+        <videogular vg-cue-points="vidctrl.config.cuePoints" vg-player-ready="vidctrl.onPlayerReady($API)" vg-theme="vidctrl.config.theme.url">
+            <vg-media vg-src="vidctrl.config.sources" vg-youtube="rel=1;showinfo=1" vg-preload="auto"></vg-media>
+            <vg-controls vg-autohide="vidctrl.config.plugins.controls.autoHide" 
+                         vg-autohide-time="vidctrl.config.plugins.controls.autoHideTime">
+                <vg-play-pause-button></vg-play-pause-button>
+                <vg-time-display>{{ currentTime | date:'HH:mm:ss':'+0000'}}</vg-time-display>
+                <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    <vg-scrub-bar-cue-points class="timepoints" vg-cue-points="vidctrl.config.cuePoints.console" >
+                    </vg-scrub-bar-cue-points>
+                </vg-scrub-bar>
+                <vg-time-display>{{ totalTime | date:'HH:mm:ss':'+0000'}}</vg-time-display>
+                <vg-volume>
+                    <vg-mute-button></vg-mute-button>
+                    <vg-volume-bar></vg-volume-bar>
+                </vg-volume>
+                <vg-fullscreen-button></vg-fullscreen-button>
+            </vg-controls>		
+        </videogular>
+    </div>
+
+    <br/>
+    <div class="content-container comments">
+        <h5 class="clear">Most recent comment</h5><br/>
+
+        <div class="panel panel-default">
+            <div class="panel-body padded" ng-show="recent.comment">
+                <p class="inline lighter"><strong>{{recent.comment.username}}</strong> said <strong>{{recent.comment.title}}</strong>
+                    at <a ng-click="seekTo(recent.comment.selfVideoReferences[0].timestamp, false)">{{recent.comment.selfVideoReferences[0].timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a></p>
+                <p style="white-space: pre-line;">{{recent.comment.body}}</p>
+            </div>
+
+            <div class="panel-body padded" ng-hide="recent.comment">
+                <p>No comments yet</p>
+            </div>
+        </div>
+        <p></p>
+        <button ng-click="openCommentForm()" 
+                type="button" class="btn btn-default btn-sm playbtn"
+                ng-show="showCommentForm">Add comment</button>
+        <div ng-hide="showCommentForm">
+            <div class="popup-form" ng-include="'views/partials/videocommentform.html'"></div>
+        </div>
+        <div class="ann-title">
+            <h5 class="clear">Comments</h5>
+            <div class="commentcontrols input-field inline-block">
+                <div class="commentselector input-field inline-block">
+                    <div class="inline"><Strong> Show: </Strong></div>
+                    <div class="inline"> &nbsp;<input type="checkbox" ng-model="checkboxModel.showannotations" ng-change="updatevisible()"> Annotations</div>
+                    <div class="inline"> &nbsp;<input type="checkbox" ng-model="checkboxModel.showquestions" ng-change="updatevisible()"> Questions </div>
+                </div>
+                <div class="commentsorter input-field inline-block">
+                    <Strong>Sort comments by: </Strong>
+                    <select ng-init="sortOrders = 'votes'" ng-model="sortOrders" ng-change="sort()" class="pretty-select" style="background-color:transparent;">
+                        <option value="votes">votes</option>
+                        <option value="date">date</option>
+                        <option value="timestamps">timestamps</option>  
+                    </select>
+                </div>    
+            </div>
+        </div>
+
+        <div id="videoplayercommentsection" ng-include="'views/partials/commentsection.html'">
+        </div>
+    </div>
+<br/><br/>

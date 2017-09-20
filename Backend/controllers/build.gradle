@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+dependencies {
+	compile('com.itextpdf:itextpdf:5.5.8')
+    compile project(':persistence')
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src'
+      exclude 'resources/'
+    }
+  }
+  test {
+    java {
+      srcDir 'testsrc'
+    }
+  }
+}

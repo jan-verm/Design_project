@@ -1,0 +1,13 @@
+<div class="modal-header">Edit reply</div>
+<div class="modal-body">
+    <form name="replyform" novalidate class="form">
+        <div class="row">
+            <div class="col-md-12 input-field">
+                <textarea ng-model="edited_reply.body" id="reply" class="materialize-textarea"></textarea>
+                <label for="reply">Reply</label>
+            </div>
+        </div>
+        <button ng-click="saveEditReply()" class="btn btn-default btn-sm">save</button>
+        <button ng-click="cancelEditReply()" class="btn btn-default btn-sm">cancel</button>
+    </form>
+</div>

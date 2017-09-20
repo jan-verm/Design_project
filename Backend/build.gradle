@@ -1,0 +1,153 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE")
+    }
+}
+
+apply plugin : 'eclipse'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'classic'
+    version =  '1.0.0'
+}
+
+allprojects {
+   repositories {
+      mavenCentral()
+      maven {
+        url 'https://repo.spring.io/libs-milestone'
+      }
+   }
+}
+
+dependencies {
+    compile project(':controllers')
+    compile project(':models')
+    compile("org.json:json:20090211")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-test:4.1.6.RELEASE")
+    compile("org.hamcrest:hamcrest-all:1.3")
+    compile("com.jayway.jsonpath:json-path:2.0.0")
+    compile("org.springframework.security:spring-security-web:4.1.0.RC2")
+    compile("org.springframework.security:spring-security-config:4.0.0.RELEASE")
+}
+
+
+allprojects {
+  apply plugin: 'java'
+  apply plugin: "jacoco"
+
+  sourceSets {
+    main {
+      java {
+        srcDir 'src'
+        exclude 'resources/'
+      }
+    }
+    test {
+      java {
+        srcDir 'testsrc'
+      }
+      resources {
+      	srcDir 'src/resources'
+      }
+    }
+    integtest {
+        java {
+          compileClasspath += main.output
+          runtimeClasspath += main.output
+          srcDir 'integtestsrc'
+        }
+        resources {
+            srcDir 'src/resources'
+          }
+
+    }
+  }
+
+    configurations {
+      integtestCompile.extendsFrom testCompile
+    }
+
+  task "integtest"(type: Test, dependsOn: integtestClasses) {
+    testClassesDir = sourceSets.integtest.output.classesDir
+    classpath = sourceSets.integtest.runtimeClasspath
+      jacoco {
+          destinationFile = file("$buildDir/jacoco/integtest.exec")
+          append = true
+          classDumpFile = file("$buildDir/jacoco/classpathdumps")
+      }
+      testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+      }
+      dependsOn 'cleanTest'
+  }
+
+  test {
+    jacoco {
+      append = true
+      destinationFile = file("$buildDir/jacoco/test.exec")
+      classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+    testLogging {
+      events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+    dependsOn 'cleanTest'
+  }
+
+  dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+  }
+
+  jacocoTestReport {
+    reports {
+        xml {
+            enabled true
+        }
+        html {
+            enabled true
+        }
+    }
+  }
+  // check.dependsOn integtest
+
+}
+
+task jacocoMerge(type: JacocoMerge) {
+        executionData test, integtest
+    }
+
+task mergedReport(type: JacocoReport) {
+    executionData jacocoMerge.destinationFile
+    dependsOn jacocoMerge
+    sourceDirectories = files(sourceSets.main.java.srcDirs)
+    classDirectories = files(sourceSets.main.output.classesDir)
+}
+
+task codeCoverageReport(type: JacocoReport) {
+
+    // Gather execution data from all subprojects
+    // (change this if you e.g. want to calculate unit test/integration test coverage separately)
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/integtest.exec")
+
+    // Add all relevant sourcesets from the subprojects
+    subprojects.each {
+       sourceSets it.sourceSets.main
+    }
+
+    reports {
+      xml.enabled true
+      html.enabled true
+      html.destination "${buildDir}/reports/jacoco"
+      csv.enabled false
+    }
+}
+
+// always run the tests before generating the report
+codeCoverageReport.dependsOn {
+    subprojects*.test
+}

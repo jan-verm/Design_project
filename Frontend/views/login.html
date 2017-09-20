@@ -1,0 +1,21 @@
+
+<div class="login-container" ng-show="!user.username">
+    <div class="wrong-login err-msg" ng-Show="wronglogin">Wrong username or password</div>
+    <form name="loginform" novalidate class="form">
+        <div class="input-field">
+            <input ng-model="user.name" name="username" id="username" type="text" required>
+            <label for="username">Username</label>
+        </div>
+        <div class="input-field">
+            <input ng-model="user.password" name="password" id="password" type="password" required>
+            <label for="password">Password</label>
+        </div>
+        <button type="submit" ng-click="login()" class="btn btn-default btn-sm pull-right">Login</button> 
+        <div style="clear:both; text-align:right;"><a ui-sref="stateSignUp()">Not a user yet? Click here to sign up.</a></div>
+    </form>
+</div>
+
+<div class="login-container" ng-show="user.username">
+    <em>You are already logged in.</em><br/>
+    <a ui-sref="stateCourses()">Back to My Courses</a>
+</div>

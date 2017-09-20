@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={150mm,237mm},
+ left=25mm,
+ top=25mm,
+ }
+
+\setlength{\parskip}{1em}
+
+\title{Known bugs and workarounds for developer}
+\author{by Team Classic}
+\date{}
+
+  
+\begin{document}
+
+\maketitle
+
+\begin{itemize}
+\item While working with cuepoints we discovered a bug in the Videogular framework; when changing list of cuepoints directly, the indicator on the seek bar does not update until the page is refreshed. This is something that should be fixed by the developers of the framework. In the mean time, a possible workaround is to copy the cuepoint list into a temporary variable, update this temporary list, and put the new list back into the cuepoint variable and the videogular config.
+
+\includegraphics{videogular-bug.png}
+
+\end{itemize}
+
+\end{document}

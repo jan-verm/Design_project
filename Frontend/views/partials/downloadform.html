@@ -1,0 +1,22 @@
+<div class="modal-header">Download</div>
+<div class="modal-body">
+    <form name="downloadform" novalidate class="form">
+        <div class="row">
+            <div class="col-md-12 input-field">
+                What do you want on your document?
+            </div>
+            <div class="col-md-12 commentselector input-field ">
+                <div ><input type="checkbox" ng-model="checkboxDownloadModel.addannotations">
+                    Annotations
+                </div>
+                <div ><input type="checkbox" ng-model="checkboxDownloadModel.addquestions">
+                    Questions
+                </div>
+            </div>
+
+        </div>
+
+        <button ng-click="download()" class="btn btn-default btn-sm">Download</button>
+        <button ng-click="cancelDownload()" class="btn btn-default btn-sm">cancel</button>
+    </form>
+</div>

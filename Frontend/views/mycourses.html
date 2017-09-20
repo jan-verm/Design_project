@@ -1,0 +1,15 @@
+<div class="center">
+    <div class="content-container">
+        <h4> 
+        My courses
+        </h4>
+        <div ng-show="courses.length == 0" class="panel panel-default"><em>You aren't subscribed to any courses yet.</em></div>
+        <div ng-repeat="course in courses | orderBy:'name'" class="panel panel-default">
+            <div class="panel-body">
+                <a ui-sref="stateCourse({courseId: course.courseId})">{{course.name}}</a>
+                <div ng-show="course.owned" class="pull-right" style="color: #888"><em>(owner)</em></div>
+            </div>
+        </div>
+        <a class="btn btn-default btn-sm playbtn" ui-sref="stateBrowseCourses()">Browse Courses...</a>
+    </div>
+</div>

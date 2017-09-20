@@ -1,0 +1,178 @@
+<!-- COMMENT -->
+<div ng-repeat="comm in comments| orderBy:orderByString" class="panel panel-default {{$last ? 'lastcompletecomment' : 'completecomment'}}"
+     ng-show="(comm.question && checkboxModel.showquestions) || (!comm.question && checkboxModel.showannotations)">
+
+    <div class="panel-body comment" id="{{comm.commentId}}">
+        <div class="wrong-login err-msg" style="padding-left: 10px;" ng-Show="comm.alrvoted">You already voted for this comment.</div>
+        <div class="voting">
+            <a ng-click="upvoteComment(comm)"><i class="material-icons upvote">arrow_drop_up</i></a>
+            <span>{{comm.upvotes}}</span>
+            <a ng-click="downvoteComment(comm)"><i class="material-icons downvote">arrow_drop_down</i></a>
+        </div>
+
+        <div class="commentdiv" name="test">
+            <p class="inline lighter">
+            <div class="inline-block" ng-include="linkto"></div>
+            <p class="inline-block">&middot; <strong>{{comm.username}}</strong> {{comm.question?"asked":"annotated"}} on {{comm.creationTime| date}}
+                <a tooltip-animation="true" uib-tooltip="unapprove" tooltip-popup-delay='500' ng-show="isOwner" ng-click="unapproveComment(comm)">
+                    <i ng-show="comm.approved"  class="material-icons md-18" style="color:green">done</i>
+                </a>
+                <i ng-show="comm.approved && user.role == 'STUDENT'"  class="material-icons md-18" style="color:green">done</i>
+            </p>
+            <p style="white-space: pre-line;">{{comm.body}}</p>
+            <div ng-if="comm.videorefs.length || comm.noterefs.length">References to:</div>
+            <div class="inline" ng-hide="!comm.videorefs.length">Videos:
+                <div ng-repeat="vidref in comm.videorefs" class="inline">
+                    <a ui-sref="stateVideo({courseId:vidref.courseId, lectureId:vidref.lectureId, videoId: vidref.videoId, t: vidref.timestamp})" target="_blank" ng-hide="{{vidref.videoId == videoId}}">{{vidref.videoTitle}} at {{vidref.timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a>
+                    <a ng-click="seekTo(vidref.timestamp)" ng-show="{{vidref.videoId == videoId}}">{{vidref.videoTitle}} at {{vidref.timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a>
+                    <div class="inline" ng-hide="$last">,</div>
+                </div><br/></div>
+            <div class="inline" ng-hide="!comm.noterefs.length">Notes:</div>
+            <div ng-repeat="notesref in comm.noterefs" class="inline">
+                <a target="_blank" ui-sref="stateCourseNotes({courseId:notesref.courseId, lectureId: notesref.lectureId, notesId: notesref.courseNotesId, com:comm.commentId})"ng-hide="{{notesref.courseNotesId == notesId}}">{{notesref.courseNotesTitle}}</a>
+                <a ng-click="scrollTo(notesref.locations[0].pageNumber, null, notesref.locations[0].y1, comm.commentId)" ng-show="{{notesref.courseNotesId == notesId}}">{{notesref.courseNotesTitle}}</a> on Page {{notesref.locations[0].pageNumber}}
+                <div class="inline" ng-hide="$last">,</div>
+            </div>
+            <div class="pull-right inline-block">
+                <a tooltip-animation="true" uib-tooltip="reply" tooltip-popup-delay='500' ng-click="showAnswerForm = !showAnswerForm;">
+                    <i class="material-icons md-18">reply</i>
+                </a>
+                <a tooltip-animation="true" uib-tooltip="edit" tooltip-popup-delay='500' ng-click="editComment(comm)" ng-show="$root.user.username == comm.username">
+                    <i class="material-icons md-18">mode_edit</i>
+                </a>
+                <a tooltip-animation="true" uib-tooltip="delete" tooltip-popup-delay='500' ng-really-message="{{confirmdelete}}" ng-really-click="deleteComment(comm)" ng-show="user.username == comm.username || isOwner">
+                    <i class="material-icons md-18">delete</i>
+                </a>
+                <a tooltip-animation="true" uib-tooltip="approve" tooltip-popup-delay='500' ng-click="approveComment(comm)" ng-show="comm.approved == false && isOwner">
+                    <i class="material-icons md-18">done</i>
+                </a>
+                <a tooltip-animation="true" uib-tooltip="add cross-reference" tooltip-popup-delay='500' ng-click="openCrossRef(comm, 'lg')" ng-show="$root.user.username == comm.username">
+                    <i class="material-icons md-18">call_split</i>
+                </a>
+            </div>
+        </div>	
+    </div>
+
+    <div class="popup-form" ng-show="showAnswerForm">
+        <form name="answerform" novalidate class="form popup-form">
+            <div class="input-field">
+                <textarea ng-model="new_reply.body" id="reply" class="materialize-textarea"></textarea>
+                <label for="reply">Reply</label>
+            </div>
+            <button ng-click="submitReply(comm);showAnswerForm = !showAnswerForm" class="btn btn-default btn-sm">submit</button>
+            <button ng-click="showAnswerForm = !showAnswerForm;new_reply = {}" class="btn btn-default btn-sm">cancel</button>
+        </form>
+    </div>
+
+    <!-- REPLY -->
+    <div ng-repeat="reply in comm.replies |orderBy:'creationTime'" class="replies">
+        <div class="panel-body reply" id="{{reply.replyId}}">
+            <div class="reply-panel">
+                
+                    <div class="wrong-login err-msg" style="padding-left: 10px;" ng-Show="reply.alrvoted">You already voted for this reply.</div>
+                <div class="replydiv">
+                    <p class="inline lighter"><strong>{{reply.user}}</strong> replied 
+                        <a tooltip-animation="true" uib-tooltip="unapprove" tooltip-popup-delay='500' ng-click="unapproveReply(reply)" ng-show="isOwner">
+                            <i ng-show="reply.approved" class="material-icons md-18" style="color:green">done</i>
+                        </a>
+                    <i ng-show="reply.approved && !isOwner " class="material-icons md-18" style="color:green">done</i>
+                    <p style="white-space: pre-line;">{{reply.body}}</p> 
+                    <div ng-if="reply.videorefs.length || reply.noterefs.length">References to:</div>
+                    <div class="inline" ng-hide="!reply.videorefs.length">Videos:
+                        <div ng-repeat="vidref in reply.videorefs" class="inline">
+                        <a ui-sref="stateVideo({courseId:vidref.courseId, lectureId:vidref.lectureId, videoId: vidref.videoId, t: vidref.timestamp})" target="_blank" ng-hide="{{vidref.videoId == videoId}}">{{vidref.videoTitle}} at {{vidref.timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a>
+                        <a ng-click="seekTo(vidref.timestamp)" ng-show="{{vidref.videoId == videoId}}">{{vidref.videoTitle}} at {{vidref.timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a>
+                        <div class="inline" ng-hide="$last">,</div>
+                    </div><br/></div>
+                    <div class="inline" ng-hide="!reply.noterefs.length">Notes:</div>
+                    <div ng-repeat="notesref in reply.noterefs" class="inline">
+                        <a target="_blank" ui-sref="stateCourseNotes({courseId:notesref.courseId, lectureId: notesref.lectureId, notesId: notesref.courseNotesId, com:comm.commentId})"ng-hide="{{notesref.courseNotesId == notesId}}">{{notesref.courseNotesTitle}}</a>
+                        <a ng-click="scrollTo(notesref.locations[0].pageNumber, null, notesref.locations[0].y1, reply.replyId)" ng-show="{{notesref.courseNotesId == notesId}}">{{notesref.courseNotesTitle}}</a> on Page {{notesref.locations[0].pageNumber}}
+                        <div class="inline" ng-hide="$last">,</div>
+                    </div>
+                    <div class="pull-right inline-block">
+                        <a tooltip-animation="true" uib-tooltip="reply" tooltip-popup-delay='500' ng-click="showReplyForm = !showReplyForm">
+                            <i class="material-icons md-18">reply</i>
+                        </a>
+                        <a tooltip-animation="true" uib-tooltip="edit" tooltip-popup-delay='500' ng-click="editReply(comm, reply)" ng-show="$root.user.username == reply.user">
+                            <i class="material-icons md-18">mode_edit</i>
+                        </a>
+                        <a tooltip-animation="true" uib-tooltip="delete" tooltip-popup-delay='500' ng-click="deleteReply(comm, reply)" ng-show="$root.user.username == reply.user || isOwner">
+                            <i class="material-icons md-18">delete</i>
+                        </a>
+                        <a tooltip-animation="true" uib-tooltip="approve" tooltip-popup-delay='500' ng-click="approveReply(reply)">
+                            <i ng-show="reply.approved == false &&isOwner" class="material-icons md-18">done</i>
+                        </a>
+                        <a tooltip-animation="true" uib-tooltip="add cross-reference" tooltip-popup-delay='500' ng-click="openCrossRefReply(comm,reply, 'lg')" ng-show="$root.user.username == reply.user"><i class="material-icons md-18">call_split</i></a>
+                    </div>
+                </div>
+
+                <div class="votingReply">
+                    <a ng-click="upvoteReply(reply)"><i class="material-icons upvote">arrow_drop_up</i></a>
+                    <span>{{reply.upvotes}}</span>
+                    <a ng-click="downvoteReply(reply)"><i class="material-icons downvote">arrow_drop_down</i></a>
+                </div>
+            </div> 
+        </div>
+
+        <div ng-show="showReplyForm" style="display:inline-block; width:100%;">
+            <form name="answerform" novalidate class="form popup-form">
+                <div class="input-field">
+                    <textarea ng-model="new_reply.body" id="reply" class="materialize-textarea"></textarea>
+                    <label for="reply">Reply</label>
+                </div>
+
+                <button ng-click="submitReplyToReply(reply);showReplyForm = !showReplyForm" class="btn btn-default btn-sm">submit</button>
+                <button ng-click="showReplyForm = !showReplyForm;new_reply = {}" class="btn btn-default btn-sm">cancel</button>
+            </form>
+        </div>
+
+        <!-- REPLY TO A REPLY -->
+        <div ng-repeat="reply2 in reply.replies|orderBy:'creationTime'" class="replies">
+            <div class="panel-body reply" id="{{reply2.replyId}}">
+                <div class="reply-panel">
+                    <div class="replydiv">
+                        <p class="inline lighter"><strong>{{reply2.user}}</strong> replied 
+                            <a tooltip-animation="true" uib-tooltip="unapprove" tooltip-popup-delay='500' ng-click="unapproveReply(reply2)" ng-show="user.role == 'STUDENT'">
+                                <i ng-show="reply2.approved" class="material-icons md-18" style="color:green">done</i>
+                            </a>
+                            <i ng-show="reply2.approved && user.role == 'STUDENT'" class="material-icons md-18" style="color:green">done</i>
+                        <p style="white-space: pre-line;">{{reply2.body}}</p>  
+                        <div ng-if="reply2.videorefs.length || reply2.noterefs.length">References to:</div>
+                        <div class="inline" ng-hide="!reply2.videorefs.length">Videos:
+                            <div ng-repeat="vidref in reply2.videorefs" class="inline">
+                            <a ui-sref="stateVideo({courseId:vidref.courseId, lectureId:vidref.lectureId, videoId: vidref.videoId, t: vidref.timestamp})" target="_blank" ng-hide="{{vidref.videoId == videoId}}">{{vidref.videoTitle}} at {{vidref.timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a>
+                            <a ng-click="seekTo(vidref.timestamp)" ng-show="{{vidref.videoId == videoId}}">{{vidref.videoTitle}} at {{vidref.timestamp| secondsToDateTime | date:'HH:mm:ss'}}</a>
+                            <div class="inline" ng-hide="$last">,</div>
+                            </div><br/>
+                        </div>
+                        <div class="inline" ng-hide="!reply2.noterefs.length">Notes:</div>
+                        <div ng-repeat="notesref in reply2.noterefs" class="inline">
+                            <a target="_blank" ui-sref="stateCourseNotes({courseId:notesref.courseId, lectureId: notesref.lectureId, notesId: notesref.courseNotesId, com:comm.commentId})"ng-hide="{{notesref.courseNotesId == notesId}}">{{notesref.courseNotesTitle}}</a>
+                            <a ng-click="scrollTo(notesref.locations[0].pageNumber, null, notesref.locations[0].y1, reply2.replyId)" ng-show="{{notesref.courseNotesId == notesId}}">{{notesref.courseNotesTitle}}</a> on Page {{notesref.locations[0].pageNumber}}
+                            <div class="inline" ng-hide="$last">,</div>
+                        </div>
+                        <div class="pull-right inline-block">
+                            <a tooltip-animation="true" uib-tooltip="edit" tooltip-popup-delay='500' ng-click="editReply(reply, reply2)" ng-show="$root.user.username == reply2.user">
+                                <i class="material-icons md-18">mode_edit</i>
+                            </a>
+                            <a tooltip-animation="true" uib-tooltip="delete" tooltip-popup-delay='500' ng-click="deleteReply(reply, reply2)" ng-show="$root.user.username == reply2.user">
+                                <i class="material-icons md-18">delete</i>
+                            </a>
+                            <a tooltip-animation="true" uib-tooltip="approve" tooltip-popup-delay='500' ng-click="approveReply(reply2)">
+                                <i ng-show="reply2.approved == false && isOwner" class="material-icons md-18">done</i>
+                            </a>
+                            <a tooltip-animation="true" uib-tooltip="add cross-reference" tooltip-popup-delay='500' ng-click="openCrossRefReply2Reply(comm,reply,reply2, 'lg')" ng-show="$root.user.username == reply2.user"><i class="material-icons md-18">call_split</i></a>
+                        </div>
+                    </div>
+
+                    <div class="votingReply">
+                        <a ng-click="upvoteReply(reply2)"><i class="material-icons upvote">arrow_drop_up</i></a>
+                        <span>{{reply2.upvotes}}</span>
+                        <a ng-click="downvoteReply(reply2)"><i class="material-icons downvote">arrow_drop_down</i></a>
+                    </div>
+                </div> 
+            </div>		 	
+        </div>
+    </div>
+</div>

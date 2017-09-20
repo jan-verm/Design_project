@@ -1,0 +1,42 @@
+<form name="commentform" novalidate class="form">
+    <div class="row form">
+        <div class="col-md-6">
+            <div class="input-field timeform">
+                <input ng-model="new_comment.hours" id="timestamphh"  type="text" ng-maxlength="2" ng-minlength="2" maxlength="2" placeholder="HH" name="hours" required>
+                <label for="timestamphh">Timestamp</label>
+            </div>
+            <div class="input-field timeform">
+                <input ng-model="new_comment.minutes" id="timestampmm"  type="text" ng-maxlength="2" ng-minlength="2" maxlength="2" placeholder="MM" name="minutes" required>
+            </div>
+            <div class="input-field timeform">
+                <input ng-model="new_comment.seconds" id="timestampss"  type="text" ng-maxlength="2" ng-minlength="2" maxlength="2" placeholder="SS" name="seconds" required>
+            </div>
+            <div ng-show="commentform.$submitted || (commentform.hours.$touched && commentform.minutes.$touched && commentform.seconds.$touched)">
+                <span style="color:red" class="help-block" ng-show="commentform.hours.$error.required
+                                || commentform.minutes.$error.required || commentform.seconds.$error.required
+                                || commentform.hours.$error.minlength || commentform.minutes.$error.minlength ||
+                                commentform.seconds.$error.minlength">Input format: HH:MM:SS
+                </span>
+                <span style="color:red" class="help-block" ng-show="wrongtimestamp()"> Your timestamp can't be higher than the video duration! </span>
+            </div>
+            <button ng-click="currentTime()" type="button" class="inline-block btn btn-default btn-sm">Set to current time</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12 input-field">
+            <textarea ng-model="new_comment.text" id="comment" name="text" class="materialize-textarea" required></textarea>
+            <label for="comment">Comment</label>
+            <div ng-show="commentform.$submitted || commentform.text.$touched">
+                <span style="color:red" class="help-block" ng-show="commentform.text.$error.required">Comment should be at least 1 character long.</span>
+            </div>
+        </div>
+    </div>
+    <div class="input-field">
+        <input ng-model="new_comment.question" id="question" type="checkbox" /><p class="inline">&nbsp; This is a question</p>
+    </div>
+    <br/><br/>
+    <button type="submit" ng-click="submitComment(commentform)" class="btn btn-default btn-sm">submit</button>
+    <button type="button" ng-click="closeCommentForm(commentform)" class="btn btn-default btn-sm">cancel</button>
+</form>
+

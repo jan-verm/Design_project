@@ -1,0 +1,140 @@
+<div class="center">
+    <div class="content-container">
+        <div>
+            <div ng-hide="editName" class="inline-block coursetitle">{{courseName}}</div>
+            <div ng-show="editName" class="inline-block nameinput">
+                <input ng-model="courseName" id="name" name="name" type="text">
+                <button type="submit" ng-click="changeName()" class="btn btn-default btn-sm inline-block">save</button>
+            </div>
+            <a ng-click="editName = !editName">
+                <i ng-show="editcoursefiles && (!editName)" class="material-icons md-18" tooltip-animation="true" uib-tooltip="change name" tooltip-popup-delay='500'>edit</i>
+            </a>
+            <div class="inline-block pull-right editdelete">
+                <a ng-click="editcoursefiles = !editcoursefiles; editName = false;" ng-show="isOwner">
+                    <i class="material-icons md-18" tooltip-animation="true" uib-tooltip="edit {{type}}" tooltip-popup-delay='500'>edit</i>
+                </a>
+                <a ng-really-message="Are you sure you want to delete this {{type}} and everything in it?" ng-really-click="deleteCourse()" ng-show="isOwner">
+                    <i tooltip-animation="true" uib-tooltip="delete {{type}}" tooltip-popup-delay='500' class="material-icons md-18">delete</i>
+                </a>
+            </div>
+        </div>
+        <div ng-show="type == 'course'">
+            <h4> 
+                Lectures &nbsp<a class="inline-block pull-right" ng-click="lectureForm = !lectureForm;" ng-show="isOwner"><i class="material-icons md-32">add_circle</i></a> 
+            </h4>
+            <div ng-show="lectureForm">
+                <form name="lectures" novalidate class="form popup-form">
+                    <div class="input-field">
+                        <input ng-model="new_lecture.name" id="name" name="name" type="text">
+                        <label for="name">Lecture Name</label> 
+                    </div>
+
+                    <button type="submit" ng-click="addLecture()" class="btn btn-default btn-sm">add</button>
+                    <button ng-click="lectureForm = !lectureForm;" class="btn btn-default btn-sm">cancel</button>
+                </form>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel panel-body">
+                    <p ng-show="lectures.length == 0"><i>No lectures to display.</i></p>
+                    <div class="flex centerflex">
+                        <div ng-repeat="lecture in lectures" class="lectures center">
+                            <a ui-sref="stateLecture({courseId: courseId, lectureId: lecture.lectureId})">
+                                <i class="material-icons icon-72">folder</i>
+                                <div class="lecturetitle" ng-show="lecture.name.length > 31"> {{lecture.name | limitTo : 28 : 0}}... </div>
+                                <div class="lecturetitle" ng-show="lecture.name.length <= 31"> {{lecture.name}} </div>
+                            </a>
+                                
+                            <a ng-really-message="Are you sure you want to delete this lecture and all files in it?" ng-really-click="deleteLecture(lecture.lectureId)" 
+                               ng-show="editcoursefiles">
+                                <i class="material-icons md-24" tooltip-animation="true" uib-tooltip="delete lecture" tooltip-popup-delay='500'>delete</i>
+                            </a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4> 
+            Course Files &nbsp
+        </h4>
+        <div class="panel panel-default">
+            <h5 class="panel-title inline-block">Videos</h5><a class="add-video inline-block pull-right" ng-click="videoForm = !videoForm;
+                video = null" ng-show="isOwner"><i class="material-icons md-32">add_circle</i></a>
+            <div ng-show="videoForm">
+                <form name="urlForm" novalidate class="form popup-form">
+                    <div class="input-field">
+                        <input ng-model="new_video.url" id="url" name="videoURL" type="url">
+                        <label for="url">YouTube video url</label> 
+                    </div>
+
+                    <div ng-show="urlForm.$submitted">
+                        <span style="color:red" class="help-block" ng-show="urlForm.videoURL.$error.url">The input should be a valid YouTube url !</span>
+                    </div>
+
+                    <button type="submit" ng-click="submitVideo()" class="btn btn-default btn-sm">add</button>
+                    <button ng-click="videoForm = !videoForm;" class="btn btn-default btn-sm">cancel</button>
+                </form>
+            </div>
+
+            <div class="panel panel-body">
+                <p ng-show="videos.length == 0"><i>No videos to display.</i></p>
+                <div class="flex">
+                    <div ng-repeat="vid in videos" class="videos center">
+                        <a ui-sref="{{checkStateCondition('Video', 'videoId: vid.videoId')}}" class="videothumbnail">
+                            <img alt="{{vid.name}}" class="videoimg" src="{{vid.thumbnail}}"/>
+                            <div class="videotitle">{{vid.name}}</div>
+                        </a>
+                        <a ng-really-message="Delete video: {{vid.name}}?" ng-really-click="deleteVideo(vid.videoId)" ng-show="editcoursefiles">
+                            <i class="material-icons md-24" tooltip-animation="true" uib-tooltip="delete video" tooltip-popup-delay='500'>delete</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <h5 class="panel-title inline-block">Notes</h5>
+            <a class="add-coursenotes inline-block pull-right" ng-click="coursenotesForm = !coursenotesForm" ng-show="isOwner">
+                <i class="material-icons md-32">add_circle</i>
+            </a>
+            <div ng-show="coursenotesForm">
+                <form name="pdfForm" novalidate class="form popup-form">
+                    <div class="input-field">
+                        <input id="file" name="pdfFile" type="file" accept.".pdf" custom-on-change="uploadFile">
+                    </div>
+                    <div ng-show="pdfForm.$submitted">
+                        <span style="color:red" class="help-block" ng-show="!validInput">Please select a file.</span>
+                    </div>
+                    <div ng-repeat="file in files" class="files">
+                        <a ng-click="removeFile($index)" class="inline">
+                            <i class="material-icons md-24 inline clearfile" tooltip-animation="true" uib-tooltip="clear file" tooltip-popup-delay='500'>clear</i>
+                        </a>
+                        <div class="filetitle inline">{{file.name}}</div>
+                    </div>
+
+                    <button type="submit" ng-click="submitPDF()" class="btn btn-default btn-sm">add</button>
+                    <button ng-click="closePDF(pdfForm);" class="btn btn-default btn-sm">cancel</button>
+                </form>
+            </div>
+
+            <div class="panel panel-body">
+                <p ng-show="notes.length == 0"><i>No course notes to display.</i></p>
+                <div class="flex centerflex">
+                    <div ng-repeat="note in notes" class="notes center" style="padding-bottom:2em">
+                        <a ui-sref="{{checkStateCondition('CourseNotes', 'notesId: note.courseNotesId')}}">
+                            <i class="material-icons icon-100">insert_drive_file</i>
+                        <div class="lecturetitle" ng-show="note.name.length > 31"> {{note.name | limitTo : 28 : 0}}... </div>
+                                <div class="lecturetitle" ng-show="note.name.length <= 31"> {{note.name}} </div>
+                        </a>
+                        <a ng-really-message="Delete file: {{note.name}}?" ng-really-click="deleteNotes(note.courseNotesId)" ng-show="editcoursefiles">
+                            <i class="material-icons md-24" tooltip-animation="true" uib-tooltip="delete file" tooltip-popup-delay='500'>delete</i>
+                        </a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ui-view></div>
+

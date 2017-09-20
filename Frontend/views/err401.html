@@ -1,0 +1,12 @@
+<div class="center">
+    <div class="content-container">
+        <h3>Unauthorized</h3>
+        <div class="panel-body err">
+            You are not authorized to do that. <br/>
+            Server says: {{errmsg}}
+        </div> 
+        <a ng-hide="user.username" class="btn btn-default btn-sm playbtn pull-right" ui-sref="stateLogin()">Back to login page</a>
+        <a ng-show="user.username" class="btn btn-default btn-sm playbtn pull-right" ui-sref="stateCourses()">Back to my courses</a>
+
+    </div>
+</div>

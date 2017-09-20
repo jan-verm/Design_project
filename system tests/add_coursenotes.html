@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://student-dp8.intec.ugent.be/" />
+<title>add_coursenotes</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">add_coursenotes</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/development/#/mycourses</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Acceptance Test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[4]/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=p &gt; i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=file</td>
+	<td>C:\Users\Juta\Documents\01 UGent\Ontwerpproject\Semester 2\Design_document.pdf</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[4]/div/form/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>css=i.material-icons.icon-100</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[2]/div/div/a/div[2]</td>
+	<td>Design_document</td>
+</tr>
+</tbody></table>
+</body>
+</html>
